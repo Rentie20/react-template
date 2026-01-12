@@ -1,1 +1,57 @@
 @import "tailwindcss";
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+}
+
+:root {
+  --text-color-base: #F9F9F9;
+}
+
+html {
+  font-family: var(--font-inter);
+  color: var(--text-color-base);
+}
+
+@utility input-number {
+  @apply flex-1 max-w-[4.25rem] text-center bg-transparent font-medium text-xs;
+  @apply focus:outline-none;
+
+  color: var(--text-color-base);
+  appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+.input-number-container:has(input:hover) {
+  @apply bg-neutral-700;
+}
+
+.input-number-container:has(input:focus) {
+  @apply bg-neutral-900 border-1 border-blue-600;
+}
+
+.validation-message-tooltip-hover {
+  @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2;
+  @apply text-xs text-center py-1.5 px-2 rounded-lg bg-neutral-900 font-normal;
+  @apply whitespace-nowrap;
+  @apply opacity-0 invisible transition-opacity duration-200;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    @apply border-t-neutral-900;
+  }
+}
+
+.input-number-group:hover .validation-message-tooltip-hover {
+  @apply opacity-100 visible;
+}
