@@ -15,10 +15,10 @@ describe("App Component", () => {
       'input[name="input-number"]'
     ) as HTMLInputElement;
 
-    fireEvent.click(screen.getByAltText("increment"));
+    fireEvent.click(screen.getByLabelText("increment"));
     expect(input.value).toBe("0.1");
 
-    fireEvent.click(screen.getByAltText("decrement"));
+    fireEvent.click(screen.getByLabelText("decrement"));
     expect(input.value).toBe("0");
   });
 

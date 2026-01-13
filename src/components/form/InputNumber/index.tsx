@@ -57,11 +57,11 @@ export const InputNumber = ({
     }
 
     let finalValue = parsedValue;
-    if (minValue && finalValue < minValue) {
+    if (minValue !== undefined && finalValue < minValue) {
       finalValue = minValue;
     }
 
-    if (maxValue && finalValue > maxValue) {
+    if (maxValue !== undefined && finalValue > maxValue) {
       onChange(lastValueValidRef.current);
       return;
     }

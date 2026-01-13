@@ -1,6 +1,6 @@
 import { render, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import { InputNumber } from "../components/form/InputNumber";
+import { InputNumber } from "../components/form/inputNumber";
 
 describe("InputNumber Component", () => {
   it("renders and handles input", () => {

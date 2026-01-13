@@ -1,8 +1,11 @@
-import decrementIcon from "./components/icons/decrement.svg";
-import incrementIcon from "./components/icons/increment.svg";
 import { formatNumberInput } from "./utils/formatNumber";
-import { InputNumber } from "./components/form/InputNumber";
+import { InputNumber } from "./components/form/inputNumber";
 import { useState } from "react";
+import { DecrementIcon } from "./components/icons/decrementIcon";
+import { IncrementIcon } from "./components/icons/incrementIcon";
+import { Tabs } from "./components/base/tabs";
+import { Tooltip } from "./components/base/tooltip";
+import { Button } from "./components/base/button";
 
 enum UnitEnum {
   Percent = "percent",
@@ -50,62 +53,42 @@ const App = () => {
     <div className="w-screen h-screen bg-neutral-800 flex items-center justify-center">
       <div className="w-70 bg-neutral-950 p-4">
         <div className="flex items-center gap-2 mb-4">
-          <label className="text-xs text-neutral-400 w-25">Unit</label>
-          <div className="flex flex-1 rounded-lg bg-neutral-900">
-            <div className="p-0.5 flex-1">
-              <button
-                onClick={() => handleUnitClick(UnitEnum.Percent)}
-                className={`w-full py-2 px-5 rounded-lg font-medium text-xs cursor-pointer ${
-                  unit === UnitEnum.Percent
-                    ? "bg-neutral-700 text-gray-50"
-                    : "bg-transparent text-gray-400"
-                }`}
-              >
-                %
-              </button>
-            </div>
-            <div className="p-0.5 flex-1">
-              <button
-                onClick={() => handleUnitClick(UnitEnum.Pixel)}
-                className={`w-full py-2 px-5 rounded-lg font-medium text-xs cursor-pointer ${
-                  unit === UnitEnum.Pixel
-                    ? "bg-neutral-700 text-gray-50"
-                    : "bg-transparent text-gray-400"
-                }`}
-              >
-                px
-              </button>
-            </div>
-          </div>
+          <label htmlFor="" className="text-xs text-neutral-400 w-25">
+            Unit
+          </label>
+          <Tabs
+            items={[
+              { value: UnitEnum.Percent, label: "%" },
+              { value: UnitEnum.Pixel, label: "px" },
+            ]}
+            value={unit}
+            onChange={handleUnitClick}
+          />
         </div>
 
         <div className="flex items-center gap-2">
-          <label className="text-xs text-neutral-400 w-25">Value</label>
+          <label htmlFor="" className="text-xs text-neutral-400 w-25">
+            Value
+          </label>
           <div className="relative flex-1">
             <div className="input-number-container flex rounded-lg bg-neutral-900">
-              <div className="relative input-number-group">
-                {isDecrementDisabled && (
-                  <div className="validation-message-tooltip-hover">
-                    Value must greater than 0
-                  </div>
-                )}
-                <button
+              <Tooltip
+                message={
+                  isDecrementDisabled ? "Value must greater than 0" : null
+                }
+              >
+                <Button
                   onClick={handleDecrement}
-                  onMouseDown={(e) => e.preventDefault()}
                   disabled={isDecrementDisabled}
-                  className={`w-9 h-full py-3 flex items-center justify-center bg-transparent rounded-l-lg text-xl font-light transition-all ${
-                    isDecrementDisabled
-                      ? "text-neutral-400 cursor-not-allowed"
-                      : "text-[var(--text-color-base)] hover:bg-neutral-700 cursor-pointer"
-                  }`}
-                >
-                  <img
-                    src={decrementIcon}
-                    alt="decrement"
-                    className={isDecrementDisabled ? "opacity-40" : ""}
-                  />
-                </button>
-              </div>
+                  position="left"
+                  aria-label="decrement"
+                  icon={
+                    <DecrementIcon
+                      className={isDecrementDisabled ? "opacity-40" : ""}
+                    />
+                  }
+                />
+              </Tooltip>
 
               <InputNumber
                 value={value}
@@ -114,29 +97,23 @@ const App = () => {
                 minValue={0}
               />
 
-              <div className="relative input-number-group">
-                {isIncrementDisabled && (
-                  <div className="validation-message-tooltip-hover">
-                    Value must smaller than 100
-                  </div>
-                )}
-                <button
+              <Tooltip
+                message={
+                  isIncrementDisabled ? "Value must smaller than 100" : null
+                }
+              >
+                <Button
                   onClick={handleIncrement}
-                  onMouseDown={(e) => e.preventDefault()}
                   disabled={isIncrementDisabled}
-                  className={`w-9 h-full py-3 flex items-center justify-center bg-transparent rounded-r-lg text-xl font-light transition-all ${
-                    isIncrementDisabled
-                      ? "text-neutral-400 cursor-not-allowed"
-                      : "text-[var(--text-color-base)] hover:bg-neutral-700 cursor-pointer"
-                  }`}
-                >
-                  <img
-                    src={incrementIcon}
-                    alt="increment"
-                    className={isIncrementDisabled ? "opacity-40" : ""}
-                  />
-                </button>
-              </div>
+                  position="right"
+                  aria-label="increment"
+                  icon={
+                    <IncrementIcon
+                      className={isIncrementDisabled ? "opacity-40" : ""}
+                    />
+                  }
+                />
+              </Tooltip>
             </div>
           </div>
         </div>
